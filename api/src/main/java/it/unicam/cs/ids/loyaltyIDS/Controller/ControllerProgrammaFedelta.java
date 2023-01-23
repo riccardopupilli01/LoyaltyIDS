@@ -79,5 +79,15 @@ public class ControllerProgrammaFedelta {
 
     }
 
+    public void addProgrammiTitolari(TitolarePuntoVendita t) throws SQLException, DateMistake {
+        String query="SELECT nomePuntoVendita FROM programmiTitolari WHERE nomePuntoVendita="+t.getNome()+"";
+        if(DBMSController.getNumberRows(query)<listaProgrammi.size()){
+            String addQuery="INSERT INTO programmiTitolari()";
+            DBMSController.insertQuery(addQuery);
+        }else{
+            throw new DateMistake("Raggiunto limite massimo dei programmi che puoi aggiungere");
+        }
+    }
+
 
 }
