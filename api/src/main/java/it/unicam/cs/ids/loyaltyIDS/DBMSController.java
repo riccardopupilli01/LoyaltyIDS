@@ -1,3 +1,5 @@
+package it.unicam.cs.ids.loyaltyIDS;
+
 import java.sql.*;
 
 public class DBMSController {

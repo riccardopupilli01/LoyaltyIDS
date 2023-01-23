@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.loyaltyIDS.Model;
 
 
-
-
 public class ProgrammaFedelta {
 
     private String nome;
