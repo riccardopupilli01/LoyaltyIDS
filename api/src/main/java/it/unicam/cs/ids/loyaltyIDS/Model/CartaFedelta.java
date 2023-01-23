@@ -1,11 +1,10 @@
 package it.unicam.cs.ids.loyaltyIDS.Model;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class CartaFedelta {
 
-    private UUID id;
+    private int id;
 
     private String nomeCarta;
 
@@ -20,19 +19,25 @@ public class CartaFedelta {
     public CartaFedelta(String nomeCarta, Date scadenza, CommessoPuntoVendita cartaPuntoVendita, Cliente cliente) {
         this.cartaPuntoVendita = cartaPuntoVendita;
         this.cliente=cliente;
-        this.id=UUID.randomUUID();
+        this.id=randomInt();
         this.nomeCarta = nomeCarta;
         this.scadenza = scadenza;
     }
 
     public CartaFedelta(String nomeCarta, CommessoPuntoVendita cartaPuntoVendita, Cliente cliente) {
-        this.id=UUID.randomUUID();
+        this.id=randomInt();
         this.nomeCarta = nomeCarta;
         this.cartaPuntoVendita = cartaPuntoVendita;
         this.cliente = cliente;
     }
 
-    public UUID getId() {
+    private int randomInt(){
+        double doubleRandom=Math.random()*6000;
+        int intRandom= (int) doubleRandom;
+        return intRandom;
+    }
+
+    public int  getId() {
         return id;
     }
 
