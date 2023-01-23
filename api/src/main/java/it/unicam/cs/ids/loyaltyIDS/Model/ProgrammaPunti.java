@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyIDS.Model;
 
 
+
 public class ProgrammaPunti extends ProgrammaFedelta {
 
     private double valoreXPunto;    //Valore in euro per singolo punto
