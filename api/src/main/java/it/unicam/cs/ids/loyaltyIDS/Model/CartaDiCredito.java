@@ -4,26 +4,23 @@ import java.util.Date;
 
 public class CartaDiCredito {
 
-    private TitolarePuntoVendita titolareCarta;
-
-    private String numeroCarta;
+    private int numeroCarta;
 
     private Date dateScadenza;
 
     private String CVV;
 
-    private String Pin;
+    private String pin;
 
 
     private double saldoCarta;
 
-    public CartaDiCredito(TitolarePuntoVendita titolareCarta, String numeroCarta, Date dateScadenza, String CVV, String pin) throws DateMistake {
-        if (numeroCarta.length()==16 && Pin.length()==5 && CVV.length()==3) {
-            this.titolareCarta = titolareCarta;
+    public CartaDiCredito(int numeroCarta, Date dateScadenza, String CVV, String pin) throws DateMistake {
+        if (pin.length()==5 && CVV.length()==3) {
             this.numeroCarta = numeroCarta;
             this.dateScadenza = dateScadenza;
             this.CVV = CVV;
-            this.Pin = pin;
+            this.pin = pin;
             this.saldoCarta=0;
         }
     }
@@ -42,11 +39,7 @@ public class CartaDiCredito {
         return saldoCarta;
     }
 
-    public TitolarePuntoVendita getTitolareCarta() {
-        return titolareCarta;
-    }
-
-    public String getNumeroCarta() {
+    public int getNumeroCarta() {
         return numeroCarta;
     }
 
@@ -59,6 +52,6 @@ public class CartaDiCredito {
     }
 
     public String getPin() {
-        return Pin;
+        return pin;
     }
 }

@@ -9,13 +9,18 @@ public class SistemaBanca {
     private ControllerPagamento statoPagamento;
 
     public SistemaBanca() {
-        if (statoPagamento.payment()){
-            pagamento=StatoPagamento.PAGATO;
-        }
-        pagamento=StatoPagamento.In_Attesa;
+        statoPagamento= new ControllerPagamento();
     }
 
     public StatoPagamento getPagamento() {
+        return pagamento;
+    }
+
+    public StatoPagamento verificaPagamento(TitolarePuntoVendita t){
+        if (statoPagamento.payment(t)){
+            pagamento=StatoPagamento.PAGATO;
+        }else pagamento=StatoPagamento.In_Attesa;
+
         return pagamento;
     }
 }

@@ -1,17 +1,15 @@
 package it.unicam.cs.ids.loyaltyIDS.Model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class Cliente extends UtenteGenerico {
 
     private List<CartaFedelta> carteFedelta;
 
 
-    public Cliente(String nome, String cognome, String indirizzo,String username, String password, String email, Number telefono) {
-        super(nome, cognome, indirizzo, email, telefono, username, password);
+    public Cliente(String nome, String cognome, String indirizzo,String email, String username, String password, int telefono) {
+        super(nome, cognome, indirizzo, email, username, password, telefono);
         this.carteFedelta = new ArrayList<>();
     }
 

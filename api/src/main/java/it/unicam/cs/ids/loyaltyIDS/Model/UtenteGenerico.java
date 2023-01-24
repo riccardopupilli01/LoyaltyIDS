@@ -14,22 +14,22 @@ public class UtenteGenerico {
 
     private String email;
 
-    private Number telefono;
+    private int telefono;
 
     private String username;
     private String password;
 
 
 
-    public UtenteGenerico(String nome, String cognome,  String indirizzo, String email, Number telefono,  String username, String password) {
+    public UtenteGenerico(String nome, String cognome,  String indirizzo, String email, String username,  String password, int telefono) {
         this.id=randomInt();
         this.Nome = nome;
         this.cognome=cognome;
         this.indirizzo = indirizzo;
         this.email=email;
-        this.telefono=telefono;
         this.username=username;
         this.password=password;
+        this.telefono=telefono;
     }
 
     private int randomInt() {
@@ -62,7 +62,7 @@ public class UtenteGenerico {
         return email;
     }
 
-    public Number getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 

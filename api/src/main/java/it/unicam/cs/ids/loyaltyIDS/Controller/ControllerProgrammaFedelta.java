@@ -21,21 +21,33 @@ public class ControllerProgrammaFedelta {
         listaProgrammi.add(programFel);
         String query="";
         if(programFel instanceof ProgrammaPunti progPunti){
-            query = "INSERT INTO programpunti (id_program, nome_program, descrizione) VALUES('" + progPunti.getId()+ "','" + progPunti.getNome()+ "','" + progPunti.getDescrizione() +"')";
+            query = "INSERT INTO programpunti (id_pp, nome_pp, descrizione_pp) VALUES('" + progPunti.getId()+ "','" + progPunti.getNome()+ "','" + progPunti.getDescrizione() +"')";
         }
         if (programFel instanceof ProgrammaLivelli progLivelli){
-            query = "INSERT INTO programmalivelli (id, nome, descrizione) VALUES('" + progLivelli.getId()+ "','" + progLivelli.getNome()+ "','" + progLivelli.getDescrizione() +"')";
+            query = "INSERT INTO programlivelli (id_pl, nome_pl, descrizione_pl) VALUES('" + progLivelli.getId()+ "','" + progLivelli.getNome()+ "','" + progLivelli.getDescrizione() +"')";
         }
         DBMSController.insertQuery(query);
     }
 
-    public List<ProgrammaFedelta> visualizzaProgrammiFedelta() throws SQLException {
-        ResultSet resultset= DBMSController.selectAllFromTable("programpunti");
-        while (resultset.next()){
-            ProgrammaFedelta progfel= new ProgrammaPunti(resultset.getString("nome_program"),
-                    resultset.getInt("id_program"));
-            if(progfel instanceof ProgrammaFedelta ){
+    public List<ProgrammaFedelta> visualizzaProgrammiPunti() throws SQLException {
+        ResultSet resultset1= DBMSController.selectAllFromTable("programpunti");
+        while (resultset1.next()){
+            ProgrammaFedelta progfel= new ProgrammaPunti(resultset1.getString("nome_pp"),
+                    resultset1.getInt("id_pp"));
+            if(progfel instanceof ProgrammaFedelta){
                 this.listaProgrammi.add(progfel);
+            }
+        }
+        return this.listaProgrammi;
+    }
+
+    public List<ProgrammaFedelta> visualizzaProgrammiLivelli() throws SQLException {
+         ResultSet resultset = DBMSController.selectAllFromTable("programlivelli");
+        while (resultset.next()){
+            ProgrammaFedelta proglev= new ProgrammaLivelli(resultset.getString("nome_pl"),
+                    resultset.getInt("id_pl"));
+            if(proglev instanceof ProgrammaFedelta ){
+                this.listaProgrammi.add(proglev);
             }
         }
         return this.listaProgrammi;
@@ -62,21 +74,15 @@ public class ControllerProgrammaFedelta {
                 this.listaProgrammi.remove(p);
             String quary="";
             if(p instanceof ProgrammaPunti pp) {
-                quary = "DELETE FROM programpunti WHERE nome_program='" + pp.getNome() + "'";
+                quary = "DELETE FROM programpunti WHERE nome_pp='" + pp.getNome() + "'";
             }
             else if(p instanceof ProgrammaLivelli pl) {
-                quary = "DELETE FROM public.programmalivelli WHERE nome='" + pl.getNome() + "';";
+                quary = "DELETE FROM programlivelli WHERE nome_pl='" + pl.getNome() + "';";
             }
             DBMSController.removeQuery(quary);
             return true;
         }
         return false;
-    }
-
-
-
-    public void confermaScelta(){
-
     }
 
     public void addProgrammiTitolari(TitolarePuntoVendita t) throws SQLException, DateMistake {
