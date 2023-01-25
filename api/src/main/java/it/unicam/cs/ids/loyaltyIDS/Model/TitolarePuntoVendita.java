@@ -35,9 +35,9 @@ public class TitolarePuntoVendita extends UtenteGenerico{
         abilitato=true;
     }
 
-    public void aggiungiProgrammaFedeltaPuntoVendita() throws AbilitationException, SQLException, DateMistake {
+    public void aggiungiProgrammaFedeltaPuntoVendita(int id) throws AbilitationException, SQLException, DateMistake {
         if(abilitato){
-            this.creaProgrammaFedelta.addProgrammiTitolari(this);
+            this.creaProgrammaFedelta.addProgrammiTitolari(this, id);
         }else{
             throw new AbilitationException("Esercente non abilitato alla piattaforma");
         }

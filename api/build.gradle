@@ -4,7 +4,9 @@
 
 plugins {
     id 'loyaltyids.java-library-conventions'
+    id 'application'
 }
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -26,4 +28,13 @@ dependencies {
 
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1'
+
+}
+
+application {
+    mainClass = 'it.unicam.cs.ids.loyaltyIDS.LoyaltyProjectApplication'
+}
+
+run{
+    standardInput = System.in
 }

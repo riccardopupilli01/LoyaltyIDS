@@ -15,7 +15,7 @@ public class LoyaltyProjectApplication {
     private static final ControllerProgrammaFedelta controllerGestore= new ControllerProgrammaFedelta();
     private static final ControllerRegistrazione controllerRegistrazioni= new ControllerRegistrazione();
 
-    public static void main(String[] args) throws SQLException, DateMistake {
+    public static void main(String[] args) throws SQLException, DateMistake, AbilitationException {
         DBMSController.init();
         System.out.println("Welcome to Loyalty Platform!!/n");
          System.out.println("Seleziona il numero per scegliere l'azione da eseguire: /n");
@@ -68,7 +68,7 @@ public class LoyaltyProjectApplication {
 
     }
 
-    private static void login() throws SQLException, DateMistake {
+    private static void login() throws SQLException, DateMistake, AbilitationException {
          System.out.println("Seleziona il numero per scegliere il ruolo: /n");
          System.out.println("1-Cliente");
          System.out.println("2-Titolare Punto Vendita");
@@ -94,7 +94,7 @@ public class LoyaltyProjectApplication {
          }
          private static void homeCommesso() {
          }
-         private static void homeTitolare() throws DateMistake, SQLException {
+         private static void homeTitolare() throws DateMistake, SQLException, AbilitationException {
         System.out.println("Seleziona l'opzione da effettuare");
         System.out.println("1-Aderisci alla piattaforma");
         System.out.println("2-Aggiungi programma al tuo punto vendita");
@@ -102,10 +102,11 @@ public class LoyaltyProjectApplication {
         switch (provaScannerInt()){
             case 1->aderisciPiattaforma();
 
+
         }
          }
 
-    private static void aderisciPiattaforma() throws DateMistake, SQLException {
+    private static void aderisciPiattaforma() throws DateMistake, SQLException, AbilitationException {
         System.out.println("Inserire il nome");
         String nome = sc.nextLine();
         System.out.println("Inserire il cognome");
@@ -123,11 +124,23 @@ public class LoyaltyProjectApplication {
         Date nn= new Date(11112025);
         CartaDiCredito cc= new CartaDiCredito(3333333, nn, "333", "33333");
         TitolarePuntoVendita t= new TitolarePuntoVendita(nome, cognome,indirizzo,email,username,password,telefono, cc);
-        cc.incrementaSaldo(700);
-        controllerRegistrazioni.registrazioneTitolare(t);
-        controllerRegistrazioni.getAllEsercenti();
-        t.effettuaPagamento();
-        System.out.println("Ottimo hai aderito alla piattaforma.");
+        System.out.println("Programmi della piattaforma inseriti dal gestore : ");
+        controllerGestore.visualizzaProgrammiPunti();
+        controllerGestore.visualizzaProgrammiLivelli();
+        for (ProgrammaFedelta pf : controllerGestore.getListaProgrammi()){
+            System.out.println(pf.toString());
+        }
+        System.out.println("Scegli id del programma da aggiungere nel tuo Punto Vendita");
+        int idPf = sc.nextInt();
+        ProgrammaFedelta programmaFedelta = null;
+        for (ProgrammaFedelta pf : controllerGestore.getListaProgrammi()){
+            if (pf.getId()== idPf){
+                programmaFedelta=pf;
+            }
+        }
+        t.aggiungiProgrammaFedeltaPuntoVendita(programmaFedelta.getId());
+        System.out.println("Programma aggiunto !");
+
     }
 
     private static void homeClienti() {
