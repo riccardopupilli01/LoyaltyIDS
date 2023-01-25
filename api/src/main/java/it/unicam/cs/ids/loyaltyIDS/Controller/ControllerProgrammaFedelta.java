@@ -51,7 +51,7 @@ public class ControllerProgrammaFedelta {
             ProgrammaFedelta proglev = new ProgrammaLivelli(resultset.getString("nome_pl"),
                     resultset.getInt("id_pl"));
 
-                this.listaProgrammi.add(proglev);
+            this.listaProgrammi.add(proglev);
 
         }
         return this.listaProgrammi;

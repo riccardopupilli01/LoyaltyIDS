@@ -23,7 +23,7 @@ public class TitolarePuntoVendita extends UtenteGenerico{
         this.creaProgrammaFedelta= new ControllerProgrammaFedelta();
     }
     public CartaDiCredito getCarta() {
-       return carta;
+        return carta;
     }
 
     public boolean isAbilitato() {

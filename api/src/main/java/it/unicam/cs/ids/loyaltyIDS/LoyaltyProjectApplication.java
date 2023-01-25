@@ -185,7 +185,7 @@ public class LoyaltyProjectApplication {
                 sc.nextLine();
                 return intero;
             } catch (Exception e) {
-                sc.nextLine();
+                String result=sc.nextLine();
                 System.out.println("Cio' che hai inserito non e' un valore numerico, ritenta ");
             }
         }
