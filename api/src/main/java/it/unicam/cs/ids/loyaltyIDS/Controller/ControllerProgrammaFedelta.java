@@ -1,6 +1,6 @@
 package it.unicam.cs.ids.loyaltyIDS.Controller;
 
-import it.unicam.cs.ids.loyaltyIDS.DBMSController;
+import it.unicam.cs.ids.loyaltyIDS.Services.DBMSController;
 import it.unicam.cs.ids.loyaltyIDS.Model.*;
 
 import java.sql.ResultSet;
@@ -28,7 +28,7 @@ public class ControllerProgrammaFedelta {
             query = "INSERT INTO programpunti (id_pp, nome_pp, descrizione_pp, valorexpunto, totpunti ) VALUES('" + progPunti.getId() + "','" + progPunti.getNome() + "','" + progPunti.getDescrizione() + "', '" + progPunti.getValoreXPunto() + "', '" + progPunti.getTotPunti() + "')";
         }
         if (programFel instanceof ProgrammaLivelli progLivelli) {
-            query = "INSERT INTO programlivelli (id_pl, nome_pl, descrizione_pl, livelloMax, puntiTot ) VALUES('" + progLivelli.getId() + "','" + progLivelli.getNome() + "','" + progLivelli.getDescrizione() + "', '" + progLivelli.getLivelloMax() + "', '" + progLivelli.getPuntiTot() + "')";
+            query = "INSERT INTO programlivelli (id_pl, nome_pl, descrizione_pl, livellomax, puntitot_pl, valorexpercentualelivello ) VALUES('" + progLivelli.getId() + "','" + progLivelli.getNome() + "','" + progLivelli.getDescrizione() + "', '" + progLivelli.getLivelloMax() + "', '" + progLivelli.getPuntiTot() + "', '" + progLivelli.getValoreXPercentualeLivello() + "')";
         }
         DBMSController.insertQuery(query);
     }
