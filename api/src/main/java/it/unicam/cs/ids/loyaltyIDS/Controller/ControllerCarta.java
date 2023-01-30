@@ -1,33 +1,27 @@
 package it.unicam.cs.ids.loyaltyIDS.Controller;
 
-import it.unicam.cs.ids.loyaltyIDS.DBMSController;
+import it.unicam.cs.ids.loyaltyIDS.Services.DBMSController;
 import it.unicam.cs.ids.loyaltyIDS.Model.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerCarta {
 
-    private DBMSController db_controller;
-
     private List<CartaFedelta> cartaFedeltaList;
 
-    private CommessoPuntoVendita puntoVendita;
-
-    public ControllerCarta(CommessoPuntoVendita puntoVendita) {
+    public ControllerCarta() {
         this.cartaFedeltaList = new ArrayList<>();
-        this.puntoVendita=puntoVendita;
     }
 
-    public void addCarta(Cliente cliente) throws DateMistake {
-        for (CartaFedelta cf : cliente.getCarteFedelta()) {
-            if (cf.getCartaPuntoVendita()==puntoVendita){
-                throw new DateMistake();
-            }
+    public void addCarta(CartaFedelta c) throws DateMistake, SQLException {
+        if(findById(c.getId())==null){
+            String query= "INSERT INTO cartefedelta (id_cf, nome_cf, scadenza_cf, punticorrenti, livellocorrente, percentualelivello nome_puntovendita, cliente_id ) VALUES('" + c.getId() + "', '" + c.getNomeCarta() + "', '" +c.getScadenza() + "', '" + c.getPuntiCorrenti() + "', '" + c.getLivelliCorrenti() + "', '" + c.getPercentualeLivello() + "', '" + c.getCartaPuntoVendita().getNomePuntoVendita() + "', '" + c.getCliente() + "')";
+            DBMSController.insertQuery(query);
         }
-        CartaFedelta cartaFedelta = new CartaFedelta(this.puntoVendita.getNome(), this.puntoVendita, cliente);
-        cliente.getCarteFedelta().add(cartaFedelta);
-
+        throw new DateMistake("La carta é gia esistente");
     }
 
     public CartaFedelta findById(int id) {
@@ -43,8 +37,27 @@ public class ControllerCarta {
     }
 
     /**
-     * aggiungi database (scelte)
-     public void confermaScelte(){
-     }
+     * Metodo che restituisce
+     * tutte le carte di un singolo cliente;
+     * @return
+     * @throws SQLException
      */
+    public List<CartaFedelta> visualizzaCarteFedelta(Cliente c) throws SQLException {
+        String table="cartefedelta";
+        ResultSet resultSet= DBMSController.selectAllFromTable(table);
+        while (resultSet.next()){
+            if(c.getId()==resultSet.getInt("cliente_id")){
+                ControllerRegistrazione cr= new ControllerRegistrazione();
+                ControllerPuntoVendita cp= new ControllerPuntoVendita();
+                PuntoVendita aggiungiPuntoVendita= cp.findById(resultSet.getString("nome_puntovendita"));
+                Cliente aggiungiCliente= cr.getByID(resultSet.getInt("clienti_id"));
+                CartaFedelta cf= new CartaFedelta(resultSet.getString("nome_cf"),
+                        resultSet.getDate("scadenza_cf"), aggiungiPuntoVendita,
+                        aggiungiCliente);
+                this.cartaFedeltaList.add(cf);
+            }
+        }
+        return this.cartaFedeltaList;
+    }
+
 }
